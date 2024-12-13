@@ -6,8 +6,8 @@ import pickle
 app = Flask(__name__)
 
 # Load the saved model and scaler
-model = pickle.load(open('D:/AI_ML/Algerian_Forest/notebook/fwi_model.pkl','rb'))
-scaler = pickle.load(open('D:/AI_ML/Algerian_Forest/notebook/scaler.pkl' ,'rb'))
+ridge_model= pickle.load(open('D:/AI_ML/Algerian_Forest/Model/ridge.pkl','rb'))
+scaler = pickle.load(open('D:/AI_ML/Algerian_Forest/Model/scaler.pkl' ,'rb'))
 
 @app.route('/')
 def index():
@@ -38,7 +38,7 @@ def predict_datapoint():
             scaled_features = scaler.transform([features])
 
             # Predict using model
-            prediction = model.predict(scaled_features)[0]
+            prediction = ridge_model.predict(scaled_features)[0]
             result = "Fire" if prediction == 1 else "Not Fire"
 
         except KeyError as e:
